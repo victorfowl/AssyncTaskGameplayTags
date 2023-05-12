@@ -4,9 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "AsyncNode.h"
 #include "TargetActor.h"
-#include "Delegates/DelegateSignatureImpl.inl"
 #include "ListeningActor.generated.h"
 
 UCLASS()
@@ -17,10 +15,4 @@ class WELEVELASSESMENT_API AListeningActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AListeningActor();
-
-	UFUNCTION(BlueprintCallable, Category = "Listening Actor")
-		void BindToTargetActor(ATargetActor* TargetActor, UAsyncNode* AsyncNode);
-
-	void DestroyThisActor();
-
 };

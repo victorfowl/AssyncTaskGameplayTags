@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -7,23 +5,30 @@
 #include "Delegates/Delegate.h"
 #include "TargetActor.generated.h"
 
+//Declaration of the event dispatcher.
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBooleanChanged);
 
 UCLASS()
 class WELEVELASSESMENT_API ATargetActor : public AActor
 {
 	GENERATED_BODY()
+
+private:
+
+    bool bBoolean;
 	
 public:	
-	// Sets default values for this actor's properties
 	ATargetActor();
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Target Actor")
-        bool bBooleanValue;
-
+    //Event dispatcher to know when the boolean changes.
     UPROPERTY(BlueprintAssignable, Category = "Target Actor")
         FBooleanChanged OnBooleanChanged;
 
+    //Setter of the boolean
     UFUNCTION(BlueprintCallable, Category = "Target Actor")
         void SetBooleanValue(bool NewValue);
+
+    //Getter of the boolean
+    UFUNCTION(BlueprintCallable, Category = "Target Actor")
+        bool GetBooleanValue();
 };

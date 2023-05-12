@@ -2,10 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
-#include "Delegates/Delegate.h"
+#include "TargetActor.h"
+#include "ListeningActor.h"
 #include "AsyncNode.generated.h"
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBooleanValueChanged);
 
 UCLASS()
 class WELEVELASSESMENT_API UAsyncNode : public UBlueprintAsyncActionBase
@@ -13,13 +12,19 @@ class WELEVELASSESMENT_API UAsyncNode : public UBlueprintAsyncActionBase
 	GENERATED_BODY()
 
 public:
+
+    //Creation of the async node
     UFUNCTION(BlueprintCallable, Category = "Custom Async Node")
-        static UAsyncNode* CreateAsyncNode(UObject* WorldContextObject);
+        static UAsyncNode* CreateAsyncNode(AActor* ListeningActor, ATargetActor* TargetActor);
 
-    UPROPERTY(BlueprintAssignable)
-        FBooleanValueChanged BooleanValueChanged;
+    virtual void Activate() override;
 
-protected:
-    UPROPERTY()
-        UObject* WorldContextObject;
+    //Function to execute the end of the async node
+    UFUNCTION()
+        void OnBooleanValueChanged();
+
+
+private:
+    AActor* ListeningActor;
+    ATargetActor* TargetActor;
 };
